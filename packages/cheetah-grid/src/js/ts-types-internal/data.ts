@@ -11,4 +11,5 @@ export type SimpleColumnIconOption = {
   svg?: string;
   name?: string;
   path?: string;
+  tail?: boolean;
 };

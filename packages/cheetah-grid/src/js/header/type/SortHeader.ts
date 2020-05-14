@@ -63,6 +63,7 @@ export class SortHeader<T> extends BaseHeader<T> {
               : "arrow_upward"
             : undefined,
           width: arrowSize,
+          tail: true,
           color:
             helper.getColor(
               sortArrowColor || helper.theme.header.sortArrowColor,

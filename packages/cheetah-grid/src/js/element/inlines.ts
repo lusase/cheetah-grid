@@ -168,8 +168,10 @@ export function buildInlines(
   inline: Inline | string | (string | Inline)[]
 ): Inline[] {
   const result = [];
-  if (icons) {
-    result.push(...icons.map((icon) => iconOf(icon)).filter(isDef));
+  const preIcons = icons?.filter(icon => !icon.tail)
+  const suffixIcons = icons?.filter(icon => icon.tail)
+  if (preIcons) {
+    result.push(...preIcons.map((icon) => iconOf(icon)).filter(isDef));
   }
   if (
     Array.isArray(inline)
@@ -181,6 +183,9 @@ export function buildInlines(
     if (il) {
       result.push(il);
     }
+  }
+  if (suffixIcons) {
+    result.push(...suffixIcons.map((icon) => iconOf(icon)).filter(isDef));
   }
   return result;
 }
