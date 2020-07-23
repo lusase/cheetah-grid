@@ -115,12 +115,12 @@ export class InlineMenuEditor<T> extends Editor<T> {
     grid: ListGridAPI<T>,
     cellId: LayoutObjectId
   ): EventListenerId[] {
-    const open = (cell: CellAddress): void => {
+    const open = (cell: CellAddress): boolean => {
       if (
         isReadOnlyRecord(this.readOnly, grid, cell.row) ||
         isDisabledRecord(this.disabled, grid, cell.row)
       ) {
-        return;
+        return false;
       }
       grid.doGetCellValue(cell.col, cell.row, (value) => {
         const record = grid.getRowRecord(cell.row);
@@ -129,6 +129,7 @@ export class InlineMenuEditor<T> extends Editor<T> {
         }
         attachMenu(grid, cell, this, value, record);
       });
+      return true;
     };
 
     function isTarget(col: number, row: number): boolean {
@@ -152,11 +153,15 @@ export class InlineMenuEditor<T> extends Editor<T> {
         if (!isTarget(sel.col, sel.row)) {
           return;
         }
-        e.stopCellMoving();
-        open({
-          col: sel.col,
-          row: sel.row,
-        });
+
+        if (
+          open({
+            col: sel.col,
+            row: sel.row,
+          })
+        ) {
+          e.stopCellMoving();
+        }
       }),
       grid.listen(DG_EVENT_TYPE.SELECTED_CELL, (_e) => {
         detachMenu();
@@ -167,25 +172,25 @@ export class InlineMenuEditor<T> extends Editor<T> {
 
       // mouse move
       grid.listen(DG_EVENT_TYPE.MOUSEOVER_CELL, (e) => {
+        if (!isTarget(e.col, e.row)) {
+          return;
+        }
         if (
           isReadOnlyRecord(this.readOnly, grid, e.row) ||
           isDisabledRecord(this.disabled, grid, e.row)
         ) {
-          return;
-        }
-        if (!isTarget(e.col, e.row)) {
           return;
         }
         grid.getElement().style.cursor = "pointer";
       }),
       grid.listen(DG_EVENT_TYPE.MOUSEMOVE_CELL, (e) => {
+        if (!isTarget(e.col, e.row)) {
+          return;
+        }
         if (
           isReadOnlyRecord(this.readOnly, grid, e.row) ||
           isDisabledRecord(this.disabled, grid, e.row)
         ) {
-          return;
-        }
-        if (!isTarget(e.col, e.row)) {
           return;
         }
         if (!grid.getElement().style.cursor) {
@@ -210,13 +215,13 @@ export class InlineMenuEditor<T> extends Editor<T> {
           // ignore multi paste values
           return;
         }
+        if (!isTarget(e.col, e.row)) {
+          return;
+        }
         if (
           isReadOnlyRecord(this.readOnly, grid, e.row) ||
           isDisabledRecord(this.disabled, grid, e.row)
         ) {
-          return;
-        }
-        if (!isTarget(e.col, e.row)) {
           return;
         }
         const record = grid.getRowRecord(e.row);
