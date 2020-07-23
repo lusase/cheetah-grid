@@ -13,3 +13,4 @@ packages/cheetah-grid-icon-svg-loader/.nyc_output/
 packages/docs/.vuepress/public/dev
 packages/cheetah-grid/dist-ts
 packages/demo/.devdocs
+.idea/
