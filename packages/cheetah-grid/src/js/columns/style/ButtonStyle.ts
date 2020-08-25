@@ -1,11 +1,7 @@
 import type { ButtonStyleOption, ColorDef } from "../../ts-types";
 import { Style } from "./Style";
+import { defaults } from "../../internal/utils";
 
-function adj(style: ButtonStyleOption): ButtonStyleOption {
-  const { textAlign = "center" } = style;
-  style.textAlign = textAlign;
-  return style;
-}
 let defaultStyle: ButtonStyle;
 export class ButtonStyle extends Style {
   private _buttonBgColor?: ColorDef;
@@ -13,14 +9,14 @@ export class ButtonStyle extends Style {
     return defaultStyle ? defaultStyle : (defaultStyle = new ButtonStyle());
   }
   constructor(style: ButtonStyleOption = {}) {
-    super(adj(style));
+    super(defaults(style, { textAlign: "center" }));
     const { buttonBgColor } = style;
     this._buttonBgColor = buttonBgColor;
   }
   get buttonBgColor(): ColorDef | undefined {
     return this._buttonBgColor;
   }
-  set buttonBgColor(buttonBgColor) {
+  set buttonBgColor(buttonBgColor: ColorDef | undefined) {
     this._buttonBgColor = buttonBgColor;
     this.doChangeStyle();
   }
