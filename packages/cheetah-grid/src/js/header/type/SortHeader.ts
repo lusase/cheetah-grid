@@ -59,8 +59,9 @@ export class SortHeader<T> extends BaseHeader<T> {
         {
           name: isDef(order)
             ? order === "asc"
-              ? "arrow_downward"
-              : "arrow_upward"
+              // swk 2020.9.1
+              ? "arrow_down"
+              : "arrow_up"
             : undefined,
           width: arrowSize,
           tail: true,

@@ -336,9 +336,9 @@ function _borderWithState<T>(
       layoutMap.getRecordIndexByRow(row) === selRecordIndex
     );
   }
-
   //罫線
-  if (isSelectCell(col, row)) {
+  // swk 2020.9.1
+  if (isSelectCell(col, row) && helper.theme.highlightBorderColor !== 'transparent') {
     option.borderColor = helper.theme.highlightBorderColor;
     option.lineWidth = 2;
     helper.border(context, option);
