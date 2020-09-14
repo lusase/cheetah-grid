@@ -33,7 +33,8 @@ export class NumberColumn<T> extends Column<T> {
     if (isNaN(num)) {
       return super.convertInternal(value);
     }
-    const format = this._format || NumberColumn.defaultFotmat;
-    return format.format(num);
+    // const format = this._format || NumberColumn.defaultFotmat;
+    // return format.format(num);
+    return String(num);
   }
 }
