@@ -49,31 +49,42 @@ export class SortHeader<T> extends BaseHeader<T> {
     const ctx = context.getContext();
     const arrowSize = getFontSize(ctx, font).width * 1.2;
 
+    const icons = [
+      {
+        name: isDef(order)
+          ? order === "asc"
+            // swk 2020.9.1
+            ? "arrow_down"
+            : "arrow_up"
+          : undefined,
+        width: arrowSize,
+        tail: true,
+        color:
+          helper.getColor(
+            sortArrowColor || helper.theme.header.sortArrowColor,
+            col,
+            row,
+            ctx
+          ) || "rgba(0, 0, 0, 0.38)",
+      },
+    ];
+    // swk 2020/9/20
+    if (grid.header && grid.header[col] && grid.header[col].infoIcon) {
+      icons.unshift({
+        name: "info_outline",
+        width: arrowSize,
+        tail: true,
+        color: "rgba(0, 0, 0, 0.38)"
+      });
+    }
+
     helper.text(value, context, {
       textAlign,
       textBaseline,
       color,
       font,
       textOverflow,
-      icons: [
-        {
-          name: isDef(order)
-            ? order === "asc"
-              // swk 2020.9.1
-              ? "arrow_down"
-              : "arrow_up"
-            : undefined,
-          width: arrowSize,
-          tail: true,
-          color:
-            helper.getColor(
-              sortArrowColor || helper.theme.header.sortArrowColor,
-              col,
-              row,
-              ctx
-            ) || "rgba(0, 0, 0, 0.38)",
-        },
-      ],
+      icons,
     });
   }
 }

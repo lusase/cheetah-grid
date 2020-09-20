@@ -23,6 +23,7 @@ import type {
 } from "./define";
 import type { RequiredThemeDefine } from "./plugin";
 import type { SimpleColumnIconOption } from "../ts-types-internal/data";
+import {HeadersDefine} from "../list-grid/layout-map";
 
 export type LayoutObjectId = number | string | symbol;
 
@@ -149,6 +150,7 @@ export interface SortState {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type HeaderValues = Map<any, any>;
 export interface ListGridAPI<T> extends DrawGridAPI {
+  header?: HeadersDefine<T>;
   records: T[] | null;
   dataSource: DataSourceAPI<T>;
   theme: RequiredThemeDefine | null;

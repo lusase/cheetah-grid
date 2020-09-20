@@ -33,6 +33,7 @@ export interface BaseHeaderDefine<T> {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface HeaderDefine<T> extends BaseHeaderDefine<T> {}
 export interface ColumnDefine<T> extends BaseHeaderDefine<T> {
+  infoIcon?: boolean;
   field?: FieldDef<T>;
   width?: number | string;
   minWidth?: number | string;
@@ -76,6 +77,7 @@ export interface ColumnData<T> extends WidthData {
 // Simple header
 
 export interface GroupHeaderDefine<T> extends HeaderDefine<T> {
+  infoIcon?: boolean;
   columns: HeadersDefine<T>;
 }
 export type HeadersDefine<T> = (GroupHeaderDefine<T> | ColumnDefine<T>)[];
