@@ -91,6 +91,6 @@ export class Scrollable {
 
     this._endPointElement.style.top = `${domHeight.toFixed()}px`;
     // swk 2020/9/19
-    this._endPointElement.style.left = `${(this._width - 2).toFixed()}px`;
+    this._endPointElement.style.left = `${this._width.toFixed()}px`;
   }
 }
