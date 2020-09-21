@@ -35,6 +35,7 @@ export class NumberColumn<T> extends Column<T> {
     }
     // const format = this._format || NumberColumn.defaultFotmat;
     // return format.format(num);
-    return String(num);
+    //swk 2020/09/21
+    return String(value);
   }
 }
