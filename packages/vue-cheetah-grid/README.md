@@ -6,7 +6,7 @@
 [![npm](https://img.shields.io/npm/dm/vue-cheetah-grid.svg)](http://www.npmtrends.com/vue-cheetah-grid)
 [![npm](https://img.shields.io/npm/dy/vue-cheetah-grid.svg)](http://www.npmtrends.com/vue-cheetah-grid)
 [![npm](https://img.shields.io/npm/dt/vue-cheetah-grid.svg)](http://www.npmtrends.com/vue-cheetah-grid)
-[![Build Status](https://travis-ci.org/future-architect/cheetah-grid.svg?branch=master)](https://travis-ci.org/future-architect/cheetah-grid)  
+[![Build Status](https://github.com/future-architect/cheetah-grid/workflows/CI/badge.svg?branch=master)](https://github.com/future-architect/cheetah-grid/actions?query=workflow%3ACI)
 [![NPM](https://nodei.co/npm/vue-cheetah-grid.png?downloads=true&stars=true)](https://www.npmjs.com/package/vue-cheetah-grid)  
 
 ## Install using npm
@@ -91,18 +91,18 @@ Please refer to the [documents](https://future-architect.github.io/cheetah-grid/
 
 ### Available `Vue Component` tag names
 
-| Component Tag Name | Function | Note |
-|----------|-----|---|
-| `<c-grid>` | Grid | --- |
-| `<c-grid-column>` | Column definition to display in the grid | --- |
-| `<c-grid-column-group>` | Definition of column group when multiple header is displayed | --- |
-| `<c-grid-button-column>` | Button column definition | component for button column definition |
-| `<c-grid-check-column>` | Checkbox column definition | component for checkbox column definition |
-| `<c-grid-input-column>` | Input column definition | component for input column definition |
-| `<c-grid-menu-column>` | Menu column definition | component for menu column definition |
-| `<c-grid-link-column>` | Link column definition | component for linkable column definition |
-| `<c-grid-icon-column>` | Icon column definition | component for icon column definition |
-| `<c-grid-percent-complete-bar-column>` | Percent complete bar column definition | component for Percent complete bar column definition |
+| Component Tag Name                     | Function                                                     | Note                                                 |
+| -------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------- |
+| `<c-grid>`                             | Grid                                                         | ---                                                  |
+| `<c-grid-column>`                      | Column definition to display in the grid                     | ---                                                  |
+| `<c-grid-column-group>`                | Definition of column group when multiple header is displayed | ---                                                  |
+| `<c-grid-button-column>`               | Button column definition                                     | component for button column definition               |
+| `<c-grid-check-column>`                | Checkbox column definition                                   | component for checkbox column definition             |
+| `<c-grid-input-column>`                | Input column definition                                      | component for input column definition                |
+| `<c-grid-menu-column>`                 | Menu column definition                                       | component for menu column definition                 |
+| `<c-grid-link-column>`                 | Link column definition                                       | component for linkable column definition             |
+| `<c-grid-icon-column>`                 | Icon column definition                                       | component for icon column definition                 |
+| `<c-grid-percent-complete-bar-column>` | Percent complete bar column definition                       | component for Percent complete bar column definition |
 
 Please refer also to the [Available Vue Components](https://future-architect.github.io/cheetah-grid/documents/api/vue/components/)
 

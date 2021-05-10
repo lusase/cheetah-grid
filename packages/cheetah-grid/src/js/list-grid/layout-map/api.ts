@@ -39,7 +39,11 @@ export interface ColumnDefine<T> extends BaseHeaderDefine<T> {
   minWidth?: number | string;
   maxWidth?: number | string;
   icon?: ColumnIconOption<T> | ColumnIconOption<T>[];
-  message?: Message | ((record: T) => Message) | keyof T;
+  message?:
+    | Message
+    | ((record: T) => Message)
+    | keyof T
+    | (Message | ((record: T) => Message) | keyof T)[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columnType?: ColumnTypeOption | BaseColumn<T, any> | null;
   action?: ColumnActionOption | BaseAction<T> | null;
@@ -66,7 +70,11 @@ export interface ColumnData<T> extends WidthData {
   id: LayoutObjectId;
   field?: FieldDef<T>;
   icon?: ColumnIconOption<T> | ColumnIconOption<T>[];
-  message?: Message | ((record: T) => Message) | keyof T;
+  message?:
+    | Message
+    | ((record: T) => Message)
+    | keyof T
+    | (Message | ((record: T) => Message) | keyof T)[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columnType: BaseColumn<T, any>;
   action?: BaseAction<T>;

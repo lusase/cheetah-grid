@@ -4,10 +4,10 @@ import type {
   ListGridAPI,
   SortState,
 } from "../../ts-types";
-import { cellInRange, isDef } from "../../internal/utils";
 import { BaseHeader } from "./BaseHeader";
 import type { DrawCellInfo } from "../../ts-types-internal";
 import { SortHeaderStyle } from "../style/SortHeaderStyle";
+import { cellInRange } from "../../internal/utils";
 import { getFontSize } from "../../internal/canvases";
 
 export class SortHeader<T> extends BaseHeader<T> {
@@ -84,7 +84,24 @@ export class SortHeader<T> extends BaseHeader<T> {
       color,
       font,
       textOverflow,
-      icons,
+      icons: [
+        {
+          name:
+            order != null
+              ? order === "asc"
+                ? "arrow_downward"
+                : "arrow_upward"
+              : undefined,
+          width: arrowSize,
+          color:
+            helper.getColor(
+              sortArrowColor || helper.theme.header.sortArrowColor,
+              col,
+              row,
+              ctx
+            ) || "rgba(0, 0, 0, 0.38)",
+        },
+      ],
     });
   }
 }

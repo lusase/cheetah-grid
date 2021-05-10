@@ -2,9 +2,12 @@
 const path = require('path')
 const fs = require('fs')
 const webpack = require('webpack')
+const {
+  VueLoaderPlugin
+} = require('vue-loader')
 
 function getVueCheetahGridPath () {
-  const vcgPath = path.resolve(__dirname, '../vue-cheetah-grid/dist/vueCheetahGrid.js')
+  const vcgPath = path.resolve(__dirname, '../vue-cheetah-grid')
   try {
     fs.statSync(vcgPath)
     return vcgPath
@@ -29,6 +32,25 @@ const devtoolModuleFilenameTemplate = ({ resourcePath }) => {
 }
 module.exports = (env, argv) => {
   const production = argv.mode === 'production'
+  if (production) {
+    const from = path.resolve(__dirname, './animals-icons')
+    const to = path.resolve(__dirname, '../../docs/animals-icons')
+    if (fs.existsSync(to)) {
+      for (const fileName of fs.readdirSync(to)) {
+        fs.unlinkSync(
+          path.resolve(path.join(to, fileName))
+        )
+      }
+    } else {
+      fs.mkdirSync(to)
+    }
+    for (const fileName of fs.readdirSync(from)) {
+      fs.copyFileSync(
+        path.resolve(path.join(from, fileName)),
+        path.resolve(path.join(to, fileName))
+      )
+    }
+  }
   return {
   // context: path.join(__dirname, 'src'),
   // context: '/',
@@ -42,10 +64,10 @@ module.exports = (env, argv) => {
       devtoolModuleFilenameTemplate,
       devtoolFallbackModuleFilenameTemplate: devtoolModuleFilenameTemplate
     },
-    externals: {
+    externals: production ? {
       'cheetah-grid': 'cheetahGrid',
-      'vue-cheetah-grid': 'vueCheetahGrid'
-    },
+      vue: 'Vue'
+    } : { vue: 'Vue' },
     resolveLoader: {
       modules: [path.resolve(__dirname, 'node_modules')]
     },
@@ -61,15 +83,6 @@ module.exports = (env, argv) => {
     },
     module: {
       rules: [
-        {
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          enforce: 'pre',
-          include: [path.resolve(__dirname, 'src')],
-          options: {
-            formatter: require('eslint-friendly-formatter')
-          }
-        },
         {
           test: /\.vue$/,
           loader: 'vue-loader'
@@ -87,6 +100,10 @@ module.exports = (env, argv) => {
           ]
         },
         {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader']
+        },
+        {
           test: /\.(png|jpg|gif)$/,
           use: [
             {
@@ -102,6 +119,7 @@ module.exports = (env, argv) => {
       ]
     },
     plugins: [
+      new VueLoaderPlugin(),
       new webpack.DefinePlugin(production ? {
         'process.env': {
           NODE_ENV: '"production"'

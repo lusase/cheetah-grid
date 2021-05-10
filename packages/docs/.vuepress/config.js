@@ -6,28 +6,36 @@ const pkg = require('../../cheetah-grid/package.json')
 const semver = require('semver')
 const rm = require('rimraf')
 const { compare, inferTitle } = require('./frontmatter')
-const gridVersion = `${semver.major(pkg.version)}.${semver.minor(pkg.version)}`
-const failbackVersion = `${semver.major(pkg.version)}.${semver.minor(pkg.version) - 1}`
 
 const DOC_ROOT = path.resolve(__dirname, '../')
 
 const production = process.env.NODE_ENV === 'production'
 
+function devPath(basePath) {
+  const rootPath = resolve(basePath)
+  const pkg = require( path.join(rootPath, 'package.json'))
+  const p = path.join(rootPath, pkg.unpkg || pkg.main)
+  return require.resolve(p)
+}
+
 const scriptPaths = []
 const devdir = resolve('./public/dev')
 if (production) {
+  const gridVersion = `${semver.major(pkg.version)}.${semver.minor(pkg.version)}.0-0`
+  const fallbackVersion = semver.minor(pkg.version) === 0 ? `${semver.major(pkg.version) - 1}` : `${semver.major(pkg.version)}.${semver.minor(pkg.version) - 1}.0`
+  const v = `^${gridVersion}||^${fallbackVersion}`
   rm.sync(path.join(devdir, '*'))
   scriptPaths.push(
-    `https://unpkg.com/cheetah-grid@${gridVersion}||${failbackVersion}`,
-    `https://unpkg.com/vue-cheetah-grid@${gridVersion}||${failbackVersion}`
+    `https://unpkg.com/cheetah-grid@${v}`,
+    `https://unpkg.com/vue-cheetah-grid@${v}`
   )
 } else {
   if (!fs.existsSync(devdir)) {
     fs.mkdirSync(devdir)
   }
   for (const p of [
-    require.resolve(resolve('../../cheetah-grid/')),
-    require.resolve(resolve('../../vue-cheetah-grid/'))
+    devPath('../../cheetah-grid/'),
+    devPath('../../vue-cheetah-grid/')
   ]) {
     const jsname = path.basename(p)
     const dest = path.join(devdir, jsname)
@@ -145,6 +153,7 @@ module.exports = {
     ['link', { rel: 'icon', href: '/icon_512x512.ico' }],
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' }],
     ['link', { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' }],
+    ['script', { src: 'https://cdnjs.cloudflare.com/ajax/libs/core-js/3.7.0/minified.js'}],
     ['script', { src: 'https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.min.js' }],
 
     ...scriptPaths.map(p => ['script', { src: p }])
@@ -165,7 +174,6 @@ module.exports = {
     // serviceWorker: {
     //   updatePopup: true
     // },
-    evergreen: true,
     nav: [
       {
         text: 'Introduction',

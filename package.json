@@ -1,7 +1,7 @@
 {
   "name": "cheetah-grid-manager",
   "private": true,
-  "version": "0.22.0",
+  "version": "1.0.0",
   "description": "Cheetah Grid is a high performance grid engine that works on canvas",
   "keywords": [
     "spreadsheet",
@@ -50,14 +50,15 @@
     "check": "node ./scripts/check_readme.js && node ./scripts/check_versions.js",
     "publish:all": "mrpm publish",
     "update:all": "mrpm update",
-    "postinstall": "cross-env NO_UPDATE_NOTIFIER=1 mrpm install",
+    "ci:all": "cross-env NO_UPDATE_NOTIFIER=1 mrpm ci",
+    "install:all": "cross-env NO_UPDATE_NOTIFIER=1 mrpm install",
     "mrpm": "mrpm"
   },
   "dependencies": {},
   "devDependencies": {
     "cross-env": "^5.2.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-html": "^6.0.0",
-    "mrpm": "^2.0.2"
+    "eslint": "^7.11.0",
+    "eslint-plugin-html": "^6.1.0",
+    "mrpm": "^3.1.0"
   }
 }

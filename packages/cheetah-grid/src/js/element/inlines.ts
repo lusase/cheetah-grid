@@ -11,7 +11,6 @@ import { InlineSvg } from "./InlineSvg";
 import type { PaddingOption } from "../internal/canvases";
 import type { SimpleColumnIconOption } from "../ts-types-internal";
 import { calcStartPosition } from "../internal/canvases";
-import { isDef } from "../internal/utils";
 
 function drawRegisteredIcon(
   ctx: CanvasRenderingContext2D,
@@ -157,7 +156,7 @@ export function iconOf(icon: SimpleColumnIconOption | null): Inline | null {
 export function of(content: string | Inline): Inline;
 export function of(content?: string | Inline | null): null;
 export function of(content?: string | Inline | null): Inline | null {
-  if (!isDef(content)) {
+  if (content == null) {
     return null;
   }
   if (content instanceof Inline) {
@@ -179,7 +178,7 @@ export function buildInlines(
     Array.isArray(inline)
     // && inline.filter(il => il instanceof Inline).length <- ?
   ) {
-    result.push(...inline.map((il) => of(il)).filter(isDef));
+    result.push(...inline.map((il) => of(il)).filter((i) => i != null));
   } else {
     const il = of(inline);
     if (il) {
