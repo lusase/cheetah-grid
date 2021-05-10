@@ -11,6 +11,7 @@ import { InlineSvg } from "./InlineSvg";
 import type { PaddingOption } from "../internal/canvases";
 import type { SimpleColumnIconOption } from "../ts-types-internal";
 import { calcStartPosition } from "../internal/canvases";
+import {isDef} from '../internal/utils'
 
 function drawRegisteredIcon(
   ctx: CanvasRenderingContext2D,

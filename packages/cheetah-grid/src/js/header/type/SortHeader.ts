@@ -9,6 +9,7 @@ import type { DrawCellInfo } from "../../ts-types-internal";
 import { SortHeaderStyle } from "../style/SortHeaderStyle";
 import { cellInRange } from "../../internal/utils";
 import { getFontSize } from "../../internal/canvases";
+import {isDef} from '../../internal/utils'
 
 export class SortHeader<T> extends BaseHeader<T> {
   get StyleClass(): typeof SortHeaderStyle {

@@ -399,7 +399,12 @@ function toBoxArray<T>(obj: T | T[]): [T, T, T, T] {
   return obj as [T, T, T, T];
 }
 
+function isDef<T>(data: T | null | undefined | void): data is T {
+  return data !== null && typeof data !== "undefined";
+}
+
 export {
+  isDef,
   isNode,
   isDescendantElement,
   getChainSafe,
