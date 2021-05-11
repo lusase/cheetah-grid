@@ -78,31 +78,13 @@ export class SortHeader<T> extends BaseHeader<T> {
         color: "rgba(0, 0, 0, 0.38)"
       });
     }
-
     helper.text(value, context, {
       textAlign,
       textBaseline,
       color,
       font,
       textOverflow,
-      icons: [
-        {
-          name:
-            order != null
-              ? order === "asc"
-                ? "arrow_downward"
-                : "arrow_upward"
-              : undefined,
-          width: arrowSize,
-          color:
-            helper.getColor(
-              sortArrowColor || helper.theme.header.sortArrowColor,
-              col,
-              row,
-              ctx
-            ) || "rgba(0, 0, 0, 0.38)",
-        },
-      ],
+      icons,
     });
   }
 }
