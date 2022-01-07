@@ -17,6 +17,8 @@ import {
 } from "./ListGrid";
 import { GridCanvasHelper } from "./GridCanvasHelper";
 import type { Theme } from "./themes/theme";
+// 2022-1-6 swk
+import {Tooltip} from './tooltip/Tooltip'
 
 export { getInternal as _getInternal } from "./get-internal";
 
@@ -50,6 +52,8 @@ export {
   getIcons,
   //plugin registers
   register,
+  // 2021-1-6 swk
+  Tooltip,
 };
 
 /** @private */
@@ -72,6 +76,8 @@ export default {
   GridCanvasHelper,
   //plugin registers
   register,
+  // 2021-1-6 swk
+  Tooltip,
   get icons(): { [key: string]: TYPES.IconDefine } {
     return getIcons();
   },
